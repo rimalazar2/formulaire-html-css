@@ -1,146 +1,121 @@
- .login-page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+:root {
+    --white: #ffffff;
+    --primary-color: #667eea;
+    --primary-dark: #764ba2;
+    --gray-300: #dcdcdc;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
 
-        .login-container {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            animation: slideUp 0.5s ease-out;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-        .login-header {
-            margin-bottom: 30px;
-        }
+form {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    animation: slideUp 0.5s ease-out;
+    border: none;
+}
 
-        .login-header h1 {
-            color: var(--primary-color);
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .login-header p {
-            color: var(--gray-600);
-            font-size: 16px;
-        }
+form div {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--gray-700);
+}
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--gray-700);
-        }
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    transition: var(--transition);
+    background: var(--white);
+    font-family: inherit;
+}
 
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid var(--gray-300);
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: var(--transition);
-            background: var(--white);
-        }
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-        }
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
 
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-            color: var(--white);
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 10px;
-        }
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
 
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        }
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    margin-right: 10px;
+}
 
-        .message {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-align: center;
-        }
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
 
-        .message-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+.btn-secondary {
+    background: var(--gray-300);
+    color: var(--gray-700);
+}
 
-        .demo-info {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 1px solid #ffeaa7;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin-top: 20px;
-            text-align: left;
-        }
+.btn-secondary:hover {
+    background: #c9c9c9;
+}
 
-        .demo-info h4 {
-            color: #856404;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .demo-info p {
-            color: #856404;
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        .demo-info code {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: monospace;
-            font-weight: bold;
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                margin: 20px;
-                padding: 30px 20px;
-            }
-
-            .login-header h1 {
-                font-size: 24px;
-            }
-        }
+@media (max-width: 480px) {
+    form {
+        margin: 20px;
+        padding: 25px 20px;
+    }
+}
