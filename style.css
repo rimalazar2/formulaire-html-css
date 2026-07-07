@@ -119,3 +119,31 @@ textarea {
         padding: 25px 20px;
     }
 }
+/* --- Amélioration du responsive et des interactions --- */
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: var(--primary-dark);
+}
+
+select {
+    cursor: pointer;
+}
+
+button.btn {
+    letter-spacing: 0.3px;
+}
+
+@media (max-width: 600px) {
+    form {
+        max-width: 100%;
+        padding: 20px 15px;
+        border-radius: 0;
+    }
+
+    .btn {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
