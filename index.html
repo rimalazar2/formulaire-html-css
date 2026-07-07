@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>formulaire-html-css</title>
+        <link rel="stylesheet" href="html_CSS_7726\style.css">
+        
+    </head>
+    <body>
+
+        <form border="1">
+            <div>
+                <label class="form-group">Nom:</label>
+                <input type="text" name="nom" class="form-control" required >
+            </div>
+            <div>
+                <label class="form-group">Prénom:</label>
+                <input type="text" name="prenom" class="form-control" required>
+            </div>
+            <div>
+                <label class="">Email</label>
+                <input type="email" name="email" class="" required>
+            
+            </div>
+            <div>
+                <label class="">Téléphone</label>
+                <input type="tel" name="telephone" class="" required>
+            </div>
+            <div>
+                <label class="">Filière ou domaine</label>
+                <select value="autre">
+                    <option value="IA & GL">IA & GL</option>
+                    <option value="Marketing digital">Marketing digital - e-commerce</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Management des projets">Management des projets</option>
+                    <option value="Ressources humaines">Ressources humaines</option>
+                    <option value="Communication">Communication</option>
+                    <option value="Design">Design</option>
+                    <option value="Informatique">Informatique</option>
+                    
+                </select>
+            </div>
+            <div>
+                <label class=""> Niveau d'etude</label>
+                <select>
+                    <option value="license 1">license 1</option>
+                    <option value="license 2">license 2</option>
+                    <option value="license 3">license 3</option>
+                    <option value="master 1">master 1</option>
+                    <option value="master 2">master 2</option>
+                    
+                </select>
+            </div>
+            <div>
+                <textarea name="message" class="form-control" placeholder="Votre message ou motivation..."></textarea>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary">Envoyer</button>
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+            </div>
+        </form>
+        
+    </body>
+</html>
