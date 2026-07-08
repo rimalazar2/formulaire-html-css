@@ -57,10 +57,7 @@
             </div>
         </form>
 
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
         <script>
-            // URL nettoyée de tout paramètre de session utilisateur (/u/0/)
             const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
 
             const ENTRY_IDS = {
@@ -74,54 +71,34 @@
             };
 
             const form = document.getElementById("monFormulaire");
-            const iframe = document.getElementById("hidden_iframe");
-            let envoiEnCours = false;
-            let tempGoogleForm = null;
-
-            iframe.addEventListener("load", function () {
-                if (envoiEnCours) {
-                    alert("Formulaire envoyé avec succès !");
-                    form.reset();
-                    if (tempGoogleForm && tempGoogleForm.parentNode) {
-                        document.body.removeChild(tempGoogleForm);
-                    }
-                    envoiEnCours = false;
-                }
-            });
 
             form.addEventListener("submit", function (e) {
-                if (envoiEnCours) return;
                 e.preventDefault();
-                envoiEnCours = true;
 
-                tempGoogleForm = document.createElement("form");
-                tempGoogleForm.action = GOOGLE_FORM_URL;
-                tempGoogleForm.method = "POST";
-                tempGoogleForm.target = "hidden_iframe";
-                tempGoogleForm.style.display = "none";
+                const formData = new FormData();
+                formData.append(ENTRY_IDS.nom, form.nom.value);
+                formData.append(ENTRY_IDS.prenom, form.prenom.value);
+                formData.append(ENTRY_IDS.email, form.email.value);
+                formData.append(ENTRY_IDS.telephone, form.telephone.value);
+                formData.append(ENTRY_IDS.filiere, form.filiere.value);
+                formData.append(ENTRY_IDS.niveau, form.niveau.value);
+                formData.append(ENTRY_IDS.message, form.message.value);
 
-                const valeurs = {
-                    [ENTRY_IDS.nom]: form.nom.value || "",
-                    [ENTRY_IDS.prenom]: form.prenom.value || "",
-                    [ENTRY_IDS.email]: form.email.value || "",
-                    [ENTRY_IDS.telephone]: form.telephone.value || "",
-                    [ENTRY_IDS.filiere]: form.filiere.value || "",
-                    [ENTRY_IDS.niveau]: form.niveau.value || "",
-                    [ENTRY_IDS.message]: form.message.value || ""
-                };
-
-                for (const [entryId, valeur] of Object.entries(valeurs)) {
-                    const input = document.createElement("input");
-                    input.type = "hidden";
-                    input.name = entryId;
-                    input.value = valeur;
-                    tempGoogleForm.appendChild(input);
-                }
-
-                document.body.appendChild(tempGoogleForm);
-                tempGoogleForm.submit();
+                fetch(GOOGLE_FORM_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: formData
+                })
+                .then(() => {
+                    alert("Formulaire envoyé avec succès !");
+                    form.reset();
+                })
+                .catch((error) => {
+                    alert("Erreur lors de l'envoi.");
+                    console.error(error);
+                });
             });
         </script>
-        <!-- Fin du script -->
+        
     </body>
 </html>
