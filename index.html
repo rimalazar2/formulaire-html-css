@@ -5,14 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>formulaire-html-css</title>
         <link rel="stylesheet" href="style.css">
-        
     </head>
     <body>
 
         <form border="1" id="monFormulaire">
             <div>
                 <label class="form-group">Nom:</label>
-                <input type="text" name="nom" class="form-control" required >
+                <input type="text" name="nom" class="form-control" required>
             </div>
             <div>
                 <label class="form-group">Prénom:</label>
@@ -21,7 +20,6 @@
             <div>
                 <label class="">Email</label>
                 <input type="email" name="email" class="" required>
-            
             </div>
             <div>
                 <label class="">Téléphone</label>
@@ -38,18 +36,16 @@
                     <option value="Communication">Communication</option>
                     <option value="Design">Design</option>
                     <option value="Informatique">Informatique</option>
-                    
                 </select>
             </div>
             <div>
-                <label class=""> Niveau d'etude</label>
+                <label class="">Niveau d'etude</label>
                 <select name="niveau" required>
                     <option value="license 1">license 1</option>
                     <option value="license 2">license 2</option>
                     <option value="license 3">license 3</option>
                     <option value="master 1">master 1</option>
                     <option value="master 2">master 2</option>
-                    
                 </select>
             </div>
             <div>
@@ -61,7 +57,6 @@
             </div>
         </form>
 
-        <!-- iframe caché : cible de la soumission, évite les erreurs 401 de fetch -->
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
         <script>
@@ -78,18 +73,32 @@
             };
 
             const form = document.getElementById("monFormulaire");
+            const iframe = document.getElementById("hidden_iframe");
             let envoiEnCours = false;
+            let tempGoogleForm = null;
+
+            // Détection de la fin du chargement dans l'iframe
+            iframe.addEventListener("load", function () {
+                if (envoiEnCours) {
+                    alert("Formulaire envoyé avec succès !");
+                    form.reset();
+                    if (tempGoogleForm && tempGoogleForm.parentNode) {
+                        document.body.removeChild(tempGoogleForm);
+                    }
+                    envoiEnCours = false;
+                }
+            });
 
             form.addEventListener("submit", function (e) {
                 if (envoiEnCours) return;
                 e.preventDefault();
                 envoiEnCours = true;
 
-                const googleForm = document.createElement("form");
-                googleForm.action = GOOGLE_FORM_URL;
-                googleForm.method = "POST";
-                googleForm.target = "hidden_iframe";
-                googleForm.style.display = "none";
+                tempGoogleForm = document.createElement("form");
+                tempGoogleForm.action = GOOGLE_FORM_URL;
+                tempGoogleForm.method = "POST";
+                tempGoogleForm.target = "hidden_iframe";
+                tempGoogleForm.style.display = "none";
 
                 const valeurs = {
                     [ENTRY_IDS.nom]: form.nom.value,
@@ -106,18 +115,11 @@
                     input.type = "hidden";
                     input.name = entryId;
                     input.value = valeur;
-                    googleForm.appendChild(input);
+                    tempGoogleForm.appendChild(input);
                 }
 
-                document.body.appendChild(googleForm);
-                googleForm.submit();
-
-                setTimeout(() => {
-                    alert("Formulaire envoyé avec succès !");
-                    form.reset();
-                    document.body.removeChild(googleForm);
-                    envoiEnCours = false;
-                }, 800);
+                document.body.appendChild(tempGoogleForm);
+                tempGoogleForm.submit();
             });
         </script>
         
