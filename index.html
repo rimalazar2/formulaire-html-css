@@ -60,7 +60,7 @@
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
         <script>
-            const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
+            const GOOGLE_FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
 
             const ENTRY_IDS = {
                 nom: "entry.190019373",
@@ -77,7 +77,6 @@
             let envoiEnCours = false;
             let tempGoogleForm = null;
 
-            // Détection de la fin du chargement dans l'iframe
             iframe.addEventListener("load", function () {
                 if (envoiEnCours) {
                     alert("Formulaire envoyé avec succès !");
