@@ -60,7 +60,8 @@
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
         <script>
-            const GOOGLE_FORM_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
+            // URL nettoyée de tout paramètre de session utilisateur (/u/0/)
+            const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
 
             const ENTRY_IDS = {
                 nom: "entry.190019373",
@@ -100,13 +101,13 @@
                 tempGoogleForm.style.display = "none";
 
                 const valeurs = {
-                    [ENTRY_IDS.nom]: form.nom.value,
-                    [ENTRY_IDS.prenom]: form.prenom.value,
-                    [ENTRY_IDS.email]: form.email.value,
-                    [ENTRY_IDS.telephone]: form.telephone.value,
-                    [ENTRY_IDS.filiere]: form.filiere.value,
-                    [ENTRY_IDS.niveau]: form.niveau.value,
-                    [ENTRY_IDS.message]: form.message.value
+                    [ENTRY_IDS.nom]: form.nom.value || "",
+                    [ENTRY_IDS.prenom]: form.prenom.value || "",
+                    [ENTRY_IDS.email]: form.email.value || "",
+                    [ENTRY_IDS.telephone]: form.telephone.value || "",
+                    [ENTRY_IDS.filiere]: form.filiere.value || "",
+                    [ENTRY_IDS.niveau]: form.niveau.value || "",
+                    [ENTRY_IDS.message]: form.message.value || ""
                 };
 
                 for (const [entryId, valeur] of Object.entries(valeurs)) {
