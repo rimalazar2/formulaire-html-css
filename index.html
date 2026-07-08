@@ -61,6 +61,9 @@
             </div>
         </form>
 
+        <!-- iframe caché : cible de la soumission, évite les erreurs 401 de fetch -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
         <script>
             const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSefYgMk1FGQ8LKvdhWyQIwD92pPIUEng770k9Yy5ucWJma-lA/formResponse";
 
@@ -74,32 +77,47 @@
                 message: "entry.1334629343"
             };
 
-            document.getElementById("monFormulaire").addEventListener("submit", function (e) {
+            const form = document.getElementById("monFormulaire");
+            let envoiEnCours = false;
+
+            form.addEventListener("submit", function (e) {
+                if (envoiEnCours) return;
                 e.preventDefault();
+                envoiEnCours = true;
 
-                const form = e.target;
-                const formData = new FormData();
+                const googleForm = document.createElement("form");
+                googleForm.action = GOOGLE_FORM_URL;
+                googleForm.method = "POST";
+                googleForm.target = "hidden_iframe";
+                googleForm.style.display = "none";
 
-                formData.append(ENTRY_IDS.nom, form.nom.value);
-                formData.append(ENTRY_IDS.prenom, form.prenom.value);
-                formData.append(ENTRY_IDS.email, form.email.value);
-                formData.append(ENTRY_IDS.telephone, form.telephone.value);
-                formData.append(ENTRY_IDS.filiere, form.filiere.value);
-                formData.append(ENTRY_IDS.niveau, form.niveau.value);
-                formData.append(ENTRY_IDS.message, form.message.value);
+                const valeurs = {
+                    [ENTRY_IDS.nom]: form.nom.value,
+                    [ENTRY_IDS.prenom]: form.prenom.value,
+                    [ENTRY_IDS.email]: form.email.value,
+                    [ENTRY_IDS.telephone]: form.telephone.value,
+                    [ENTRY_IDS.filiere]: form.filiere.value,
+                    [ENTRY_IDS.niveau]: form.niveau.value,
+                    [ENTRY_IDS.message]: form.message.value
+                };
 
-                fetch(GOOGLE_FORM_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: formData
-                })
-                .then(() => {
+                for (const [entryId, valeur] of Object.entries(valeurs)) {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = entryId;
+                    input.value = valeur;
+                    googleForm.appendChild(input);
+                }
+
+                document.body.appendChild(googleForm);
+                googleForm.submit();
+
+                setTimeout(() => {
                     alert("Formulaire envoyé avec succès !");
                     form.reset();
-                })
-                .catch(() => {
-                    alert("Une erreur est survenue lors de l'envoi. Vérifie ta connexion et réessaie.");
-                });
+                    document.body.removeChild(googleForm);
+                    envoiEnCours = false;
+                }, 800);
             });
         </script>
         
